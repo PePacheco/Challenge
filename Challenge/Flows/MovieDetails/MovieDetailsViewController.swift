@@ -90,12 +90,13 @@ class MovieDetailsViewController: UIViewController {
         
         let fullString = NSMutableAttributedString(string: "")
 
-        let image1Attachment = NSTextAttachment()
-        image1Attachment.image = UIImage(systemName: "star")
+        let imageAttachment = NSTextAttachment()
+        imageAttachment.image = UIImage(systemName: "star")
+        imageAttachment.image = imageAttachment.image?.withTintColor(UIColor(red: 1.00, green: 1.00, blue: 0.00, alpha: 1.00))
 
-        let image1String = NSAttributedString(attachment: image1Attachment)
+        let startImageString = NSAttributedString(attachment: imageAttachment)
 
-        fullString.append(image1String)
+        fullString.append(startImageString)
         fullString.append(NSAttributedString(string: movieDetails.rating))
         
         self.ratingLabel.attributedText = fullString
