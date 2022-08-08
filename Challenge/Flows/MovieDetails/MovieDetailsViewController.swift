@@ -62,18 +62,6 @@ class MovieDetailsViewController: UIViewController {
     }
     
     private func bindViewModel() {
-        self.viewModel.isLoadingObservable.bind { isLoading in
-            if !isLoading {
-                DispatchQueue.main.async {
-                    self.posterImageView.hideSkeleton()
-                    self.genreLabel.hideSkeleton()
-                    self.ratingLabel.hideSkeleton()
-                    self.releaseLabel.hideSkeleton()
-                    self.descriptionLabel.hideSkeleton()
-                }
-            }
-        }.disposed(by: disposeBag)
-        
         self.viewModel.errorObservable.bind { error in
             if !error.isEmpty {
                 DispatchQueue.main.async {
@@ -102,6 +90,12 @@ class MovieDetailsViewController: UIViewController {
         self.genreLabel.text = movieDetails.genres.map { $0.name }.joined(separator: ", ")
         self.releaseLabel.text = "Estréia: \(movieDetails.release)"
         self.descriptionLabel.text = movieDetails.description
+        
+        self.posterImageView.hideSkeleton()
+        self.genreLabel.hideSkeleton()
+        self.ratingLabel.hideSkeleton()
+        self.releaseLabel.hideSkeleton()
+        self.descriptionLabel.hideSkeleton()
     }
 
 }
