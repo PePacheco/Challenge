@@ -49,10 +49,12 @@ class MoviesListViewModel {
             self.movies.accept(response.results)
             self.isLoading.accept(false)
         } onError: { error in
-            print(error)
             self.isLoading.accept(false)
             self.error.accept("An error occured while fetching the data.")
         }.disposed(by: disposeBag)
-
+    }
+    
+    func getMovie(at indexPath: IndexPath) -> Movie {
+        return movies.value[indexPath.row]
     }
 }

@@ -11,11 +11,13 @@ import RxCocoa
 
 class MoviesListViewController: UIViewController {
     
+    @IBOutlet weak var moviesCollectionView: UICollectionView!
+    
     private let viewModel: MoviesListViewModel
     private let disposeBag: DisposeBag
     private var movies: [Movie] = [] {
         didSet {
-            print(movies)
+            self.moviesCollectionView.reloadData()
         }
     }
         
@@ -36,7 +38,28 @@ class MoviesListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = .label
+        self.setUpNavigationBar()
         self.bindViewModel()
+        self.setUpCollectionView()
+    }
+    
+    private func setUpCollectionView() {
+        self.moviesCollectionView.register(UINib(nibName: MoviesListCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: MoviesListCollectionViewCell.identifier)
+        self.moviesCollectionView.dataSource = self
+        self.moviesCollectionView.delegate = self
+    }
+    
+    private func setUpNavigationBar() {
+        let lbNavTitle = UILabel (frame: CGRect(x: 0, y: 0, width: 320, height: 40))
+        lbNavTitle.textColor = UIColor.white
+        lbNavTitle.numberOfLines = 0
+        lbNavTitle.center = CGPoint(x: 0, y: 0)
+        lbNavTitle.textAlignment = .left
+        lbNavTitle.text = "Cine SKY"
+        lbNavTitle.font = .systemFont(ofSize: 20, weight: .bold)
+
+        self.navigationItem.titleView = lbNavTitle
     }
     
     private func bindViewModel() {
@@ -61,9 +84,43 @@ class MoviesListViewController: UIViewController {
         }.disposed(by: disposeBag)
         
         self.viewModel.moviesObservable.bind { movies in
-            self.movies = movies
+            DispatchQueue.main.async {
+                self.movies = movies
+            }
         }.disposed(by: disposeBag)
     }
 
 
+}
+
+extension MoviesListViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return movies.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MoviesListCollectionViewCell.identifier, for: indexPath) as?  MoviesListCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        let movie = self.viewModel.getMovie(at: indexPath)
+        let url = URL(string: movie.image)
+        print(url)
+        cell.configure(name: movie.title, posterUrl: url)
+        return cell
+    }
+    
+}
+
+extension MoviesListViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let screenSize = UIScreen.main.bounds.size
+        let cellWidth = (screenSize.width - 48)/2
+        return CGSize(width: cellWidth, height: cellWidth * 1.25)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 0)
+    }
+    
 }
