@@ -86,7 +86,19 @@ class MovieDetailsViewController: UIViewController {
         
         self.title = movieDetails.title
         self.posterImageView.kf.setImage(with: URL(string: movieDetails.image))
-        self.ratingLabel.text = movieDetails.rating
+        self.posterImageView.layer.cornerRadius = 4
+        
+        let fullString = NSMutableAttributedString(string: "")
+
+        let image1Attachment = NSTextAttachment()
+        image1Attachment.image = UIImage(systemName: "star")
+
+        let image1String = NSAttributedString(attachment: image1Attachment)
+
+        fullString.append(image1String)
+        fullString.append(NSAttributedString(string: movieDetails.rating))
+        
+        self.ratingLabel.attributedText = fullString
         self.genreLabel.text = movieDetails.genres.map { $0.name }.joined(separator: ", ")
         self.releaseLabel.text = "Estréia: \(movieDetails.release)"
         self.descriptionLabel.text = movieDetails.description
