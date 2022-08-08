@@ -27,6 +27,10 @@
 		057CCDC028A1854400E874A8 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 057CCDBF28A1854400E874A8 /* RxCocoa */; };
 		057CCDC228A1854400E874A8 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 057CCDC128A1854400E874A8 /* RxRelay */; };
 		057CCDC428A1854400E874A8 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 057CCDC328A1854400E874A8 /* RxSwift */; };
+		057CCDC628A1868900E874A8 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057CCDC528A1868900E874A8 /* Movie.swift */; };
+		057CCDC828A187D200E874A8 /* MoviesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057CCDC728A187D200E874A8 /* MoviesRepository.swift */; };
+		057CCDCA28A1897900E874A8 /* GetAllMoviesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057CCDC928A1897900E874A8 /* GetAllMoviesUseCase.swift */; };
+		057CCDCC28A189A800E874A8 /* GetAllMoviesUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057CCDCB28A189A800E874A8 /* GetAllMoviesUseCaseImpl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +71,10 @@
 		057CCDB828A183CF00E874A8 /* MoviesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesListViewController.swift; sourceTree = "<group>"; };
 		057CCDB928A183CF00E874A8 /* MoviesListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MoviesListViewController.xib; sourceTree = "<group>"; };
 		057CCDBC28A1842400E874A8 /* MoviesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesListViewModel.swift; sourceTree = "<group>"; };
+		057CCDC528A1868900E874A8 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		057CCDC728A187D200E874A8 /* MoviesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesRepository.swift; sourceTree = "<group>"; };
+		057CCDC928A1897900E874A8 /* GetAllMoviesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllMoviesUseCase.swift; sourceTree = "<group>"; };
+		057CCDCB28A189A800E874A8 /* GetAllMoviesUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllMoviesUseCaseImpl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +200,7 @@
 		057CCD9A28A1827F00E874A8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				057CCDC528A1868900E874A8 /* Movie.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -215,6 +224,8 @@
 		057CCDA128A1830E00E874A8 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				057CCDC928A1897900E874A8 /* GetAllMoviesUseCase.swift */,
+				057CCDCB28A189A800E874A8 /* GetAllMoviesUseCaseImpl.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -222,6 +233,7 @@
 		057CCDA228A1831200E874A8 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				057CCDC728A187D200E874A8 /* MoviesRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -381,11 +393,15 @@
 				057CCDA428A1831A00E874A8 /* HTTPClient.swift in Sources */,
 				057CCDB628A183A400E874A8 /* AppCoordinating.swift in Sources */,
 				057CCD6628A1824000E874A8 /* AppDelegate.swift in Sources */,
+				057CCDCA28A1897900E874A8 /* GetAllMoviesUseCase.swift in Sources */,
+				057CCDC828A187D200E874A8 /* MoviesRepository.swift in Sources */,
 				057CCDB428A1838F00E874A8 /* AppCoordinator.swift in Sources */,
 				057CCDBD28A1842400E874A8 /* MoviesListViewModel.swift in Sources */,
 				057CCDA028A182F200E874A8 /* HTTPError.swift in Sources */,
+				057CCDCC28A189A800E874A8 /* GetAllMoviesUseCaseImpl.swift in Sources */,
 				057CCDBA28A183CF00E874A8 /* MoviesListViewController.swift in Sources */,
 				057CCD6828A1824000E874A8 /* SceneDelegate.swift in Sources */,
+				057CCDC628A1868900E874A8 /* Movie.swift in Sources */,
 				057CCDB228A1836600E874A8 /* Coordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -18,10 +18,11 @@ class AppCoordinator: AppCoorinating {
     }
     
     func start() {
-        let viewModel = MoviesListViewModel(coordinator: self)
+        let repository = MoviesRepository()
+        let getAllMoviesUseCase = GetAllMoviesUseCaseImpl(repository: repository)
+        let viewModel = MoviesListViewModel(coordinator: self, getAllMoviesUseCase: getAllMoviesUseCase)
         let moviesListviewController = MoviesListViewController(viewModel: viewModel)
         navigationController.setViewControllers([moviesListviewController], animated: true)
     }
 
-    
 }

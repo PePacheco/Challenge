@@ -10,15 +10,20 @@ import RxSwift
 
 class HTTPClient {
     
-    static let shared = HTTPClient()
+    let headers: [String: String]
     
-    private init() {}
+    init(withHeaders headers: [String: String]) {
+        self.headers = headers
+    }
     
     func get<T: Codable>(url: String) -> Observable<T> {
         return Observable<T>.create { observer in
-            guard let request = URL(string: url) else {
+            guard let url = URL(string: url) else {
                 return Disposables.create()
             }
+            
+            var request = URLRequest(url: url)
+            self.headers.forEach { request.setValue($1, forHTTPHeaderField: $0) }
 
             let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
                 do {
