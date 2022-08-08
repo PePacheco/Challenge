@@ -36,7 +36,6 @@ class MoviesListViewModel {
     ) {
         self.disposeBag = DisposeBag()
         self.coordinator = coordinator
-        print(coordinator)
         self.getAllMoviesUseCase = getAllMoviesUseCase
         
         self.isLoading = BehaviorRelay(value: false)
