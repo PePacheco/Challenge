@@ -12,7 +12,7 @@ import RxRelay
 class MovieDetailsViewModel {
     
     private var coordinator: AppCoordinating?
-    private var getMovieDetailsUseCase: GetMovieDetailsUseCaseImpl
+    private var getMovieDetailsUseCase: GetMovieDetailsUseCase
     private let disposeBag: DisposeBag
     private let id: String
     
@@ -33,7 +33,7 @@ class MovieDetailsViewModel {
     
     init(
         coordinator: AppCoordinating,
-        getMovieDetailsUseCase: GetMovieDetailsUseCaseImpl,
+        getMovieDetailsUseCase: GetMovieDetailsUseCase,
         id: String
     ) {
         self.id = id
@@ -49,12 +49,11 @@ class MovieDetailsViewModel {
     func fetchMovieDetails() {
         self.isLoading.accept(true)
         self.getMovieDetailsUseCase.execute(with: self.id).subscribe { response in
-            print(response)
             self.movie.accept(response.result)
             self.isLoading.accept(false)
         } onError: { error in
             self.isLoading.accept(false)
-            self.error.accept("An error occured while fetching the data.")
+            self.error.accept("Ocorreu um erro ao buscar seus dados.")
         }.disposed(by: disposeBag)
 
     }

@@ -50,7 +50,7 @@ class MoviesListViewModel {
             self.isLoading.accept(false)
         } onError: { error in
             self.isLoading.accept(false)
-            self.error.accept("An error occured while fetching the data.")
+            self.error.accept("Ocorreu um erro ao buscar seus dados.")
         }.disposed(by: disposeBag)
     }
     

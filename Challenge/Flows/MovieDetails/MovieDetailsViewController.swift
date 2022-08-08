@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import SkeletonView
 
 class MovieDetailsViewController: UIViewController {
     
@@ -35,6 +36,21 @@ class MovieDetailsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.posterImageView.isSkeletonable = true
+        self.genreLabel.isSkeletonable = true
+        self.ratingLabel.isSkeletonable = true
+        self.releaseLabel.isSkeletonable = true
+        self.descriptionLabel.isSkeletonable = true
+        
+        self.posterImageView.showAnimatedGradientSkeleton()
+        self.genreLabel.showAnimatedGradientSkeleton()
+        self.ratingLabel.showAnimatedGradientSkeleton()
+        self.releaseLabel.showAnimatedGradientSkeleton()
+        self.descriptionLabel.showAnimatedGradientSkeleton()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.viewModel.fetchMovieDetails()
@@ -42,19 +58,18 @@ class MovieDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.bindViewModel()
     }
     
     private func bindViewModel() {
         self.viewModel.isLoadingObservable.bind { isLoading in
-            if isLoading {
+            if !isLoading {
                 DispatchQueue.main.async {
-                    self.presentLoadingScreen()
-                }
-            } else {
-                DispatchQueue.main.async {
-                    self.dismiss(animated: true)
+                    self.posterImageView.hideSkeleton()
+                    self.genreLabel.hideSkeleton()
+                    self.ratingLabel.hideSkeleton()
+                    self.releaseLabel.hideSkeleton()
+                    self.descriptionLabel.hideSkeleton()
                 }
             }
         }.disposed(by: disposeBag)
@@ -80,8 +95,9 @@ class MovieDetailsViewController: UIViewController {
         guard let movieDetails = movieDetails else {
             return
         }
+        
         self.title = movieDetails.title
-        //self.posterImageView.kf.setImage(with: URL(string: movieDetails.image))
+        self.posterImageView.kf.setImage(with: URL(string: movieDetails.image))
         self.ratingLabel.text = movieDetails.rating
         self.genreLabel.text = movieDetails.genres.map { $0.name }.joined(separator: ", ")
         self.releaseLabel.text = "Estréia: \(movieDetails.release)"

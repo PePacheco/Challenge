@@ -72,7 +72,7 @@ class MoviesListViewModelTests: XCTestCase {
         }.disposed(by: disposeBag!)
         
         viewModel!.errorObservable.bind{ error in
-            XCTAssertEqual(error, "An error occured while fetching the data.")
+            XCTAssertEqual(error, "Ocorreu um erro ao buscar seus dados.")
         }.disposed(by: disposeBag!)
     }
     

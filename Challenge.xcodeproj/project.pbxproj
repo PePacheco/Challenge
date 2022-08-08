@@ -42,6 +42,9 @@
 		05ED14CE28A1A29100B27489 /* GetMovieDetailsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ED14CD28A1A29100B27489 /* GetMovieDetailsUseCase.swift */; };
 		05ED14D028A1A2DA00B27489 /* GetMovieDetailsUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ED14CF28A1A2DA00B27489 /* GetMovieDetailsUseCaseImpl.swift */; };
 		05ED14D328A1A41600B27489 /* MovieDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ED14D228A1A41600B27489 /* MovieDetails.swift */; };
+		05ED14D628A1AB6400B27489 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 05ED14D528A1AB6400B27489 /* SkeletonView */; };
+		05ED14D828A1AE5800B27489 /* MovieDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ED14D728A1AE5800B27489 /* MovieDetailsViewModelTests.swift */; };
+		05ED14DA28A1AE8600B27489 /* MockGetMovieDetailsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ED14D928A1AE8600B27489 /* MockGetMovieDetailsUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +100,8 @@
 		05ED14CD28A1A29100B27489 /* GetMovieDetailsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMovieDetailsUseCase.swift; sourceTree = "<group>"; };
 		05ED14CF28A1A2DA00B27489 /* GetMovieDetailsUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMovieDetailsUseCaseImpl.swift; sourceTree = "<group>"; };
 		05ED14D228A1A41600B27489 /* MovieDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetails.swift; sourceTree = "<group>"; };
+		05ED14D728A1AE5800B27489 /* MovieDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewModelTests.swift; sourceTree = "<group>"; };
+		05ED14D928A1AE8600B27489 /* MockGetMovieDetailsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGetMovieDetailsUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +113,7 @@
 				057CCDC028A1854400E874A8 /* RxCocoa in Frameworks */,
 				057CCDC428A1854400E874A8 /* RxSwift in Frameworks */,
 				057CCDB028A1834C00E874A8 /* Kingfisher in Frameworks */,
+				05ED14D628A1AB6400B27489 /* SkeletonView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				0551B58228A197FF00C92831 /* MoviesListViewModelTests.swift */,
+				05ED14D728A1AE5800B27489 /* MovieDetailsViewModelTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -309,6 +316,7 @@
 			children = (
 				05ED14CD28A1A29100B27489 /* GetMovieDetailsUseCase.swift */,
 				05ED14CF28A1A2DA00B27489 /* GetMovieDetailsUseCaseImpl.swift */,
+				05ED14D928A1AE8600B27489 /* MockGetMovieDetailsUseCase.swift */,
 			);
 			path = GetMovieDetails;
 			sourceTree = "<group>";
@@ -334,6 +342,7 @@
 				057CCDBF28A1854400E874A8 /* RxCocoa */,
 				057CCDC128A1854400E874A8 /* RxRelay */,
 				057CCDC328A1854400E874A8 /* RxSwift */,
+				05ED14D528A1AB6400B27489 /* SkeletonView */,
 			);
 			productName = Challenge;
 			productReference = 057CCD6228A1824000E874A8 /* Challenge.app */;
@@ -410,6 +419,7 @@
 			packageReferences = (
 				057CCDAE28A1834C00E874A8 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				057CCDBE28A1854400E874A8 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				05ED14D428A1AB6400B27489 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			productRefGroup = 057CCD6328A1824000E874A8 /* Products */;
 			projectDirPath = "";
@@ -463,6 +473,7 @@
 				057CCDB628A183A400E874A8 /* AppCoordinating.swift in Sources */,
 				05ED14D328A1A41600B27489 /* MovieDetails.swift in Sources */,
 				057CCD6628A1824000E874A8 /* AppDelegate.swift in Sources */,
+				05ED14DA28A1AE8600B27489 /* MockGetMovieDetailsUseCase.swift in Sources */,
 				05ED14CE28A1A29100B27489 /* GetMovieDetailsUseCase.swift in Sources */,
 				057CCDCA28A1897900E874A8 /* GetAllMoviesUseCase.swift in Sources */,
 				05ED14CB28A19DD200B27489 /* MovieDetailsViewModel.swift in Sources */,
@@ -486,6 +497,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				057CCD7D28A1824100E874A8 /* ChallengeTests.swift in Sources */,
+				05ED14D828A1AE5800B27489 /* MovieDetailsViewModelTests.swift in Sources */,
 				0551B58328A197FF00C92831 /* MoviesListViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -828,6 +840,14 @@
 				kind = branch;
 			};
 		};
+		05ED14D428A1AB6400B27489 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -850,6 +870,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 057CCDBE28A1854400E874A8 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
+		};
+		05ED14D528A1AB6400B27489 /* SkeletonView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 05ED14D428A1AB6400B27489 /* XCRemoteSwiftPackageReference "SkeletonView" */;
+			productName = SkeletonView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
