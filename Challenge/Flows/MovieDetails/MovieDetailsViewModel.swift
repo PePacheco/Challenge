@@ -49,6 +49,7 @@ class MovieDetailsViewModel {
     func fetchMovieDetails() {
         self.isLoading.accept(true)
         self.getMovieDetailsUseCase.execute(with: self.id).subscribe { response in
+            print(response)
             self.movie.accept(response.result)
             self.isLoading.accept(false)
         } onError: { error in

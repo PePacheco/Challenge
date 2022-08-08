@@ -11,12 +11,17 @@ import RxCocoa
 
 class MovieDetailsViewController: UIViewController {
     
+    @IBOutlet weak var posterImageView: UIImageView!
+    @IBOutlet weak var genreLabel: UILabel!
+    @IBOutlet weak var ratingLabel: UILabel!
+    @IBOutlet weak var releaseLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    
     private let viewModel: MovieDetailsViewModel
     private let disposeBag: DisposeBag
     private var movieDetails: MovieDetails? {
         didSet {
             self.updateUI()
-            print(movieDetails)
         }
     }
 
@@ -72,7 +77,15 @@ class MovieDetailsViewController: UIViewController {
     }
     
     private func updateUI() {
-        
+        guard let movieDetails = movieDetails else {
+            return
+        }
+        self.title = movieDetails.title
+        //self.posterImageView.kf.setImage(with: URL(string: movieDetails.image))
+        self.ratingLabel.text = movieDetails.rating
+        self.genreLabel.text = movieDetails.genres.map { $0.name }.joined(separator: ", ")
+        self.releaseLabel.text = "Estréia: \(movieDetails.release)"
+        self.descriptionLabel.text = movieDetails.description
     }
 
 }

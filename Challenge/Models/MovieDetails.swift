@@ -17,6 +17,7 @@ struct MovieDetails: Codable {
     let title: String
     let rating: String
     let description: String
+    let release: String
     let genres: [MovieGenre]
 }
 
