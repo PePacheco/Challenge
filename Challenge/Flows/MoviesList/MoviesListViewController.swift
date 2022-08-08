@@ -104,7 +104,6 @@ extension MoviesListViewController: UICollectionViewDataSource, UICollectionView
         }
         let movie = self.viewModel.getMovie(at: indexPath)
         let url = URL(string: movie.image)
-        print(url)
         cell.configure(name: movie.title, posterUrl: url)
         return cell
     }
@@ -116,7 +115,7 @@ extension MoviesListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let screenSize = UIScreen.main.bounds.size
         let cellWidth = (screenSize.width - 48)/2
-        return CGSize(width: cellWidth, height: cellWidth * 1.25)
+        return CGSize(width: cellWidth, height: cellWidth * 1.35)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

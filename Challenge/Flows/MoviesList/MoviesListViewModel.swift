@@ -11,7 +11,7 @@ import RxRelay
 
 class MoviesListViewModel {
     
-    private weak var coordinator: AppCoorinating?
+    private weak var coordinator: AppCoordinating?
     private let getAllMoviesUseCase: GetAllMoviesUseCase
     private let disposeBag: DisposeBag
     
@@ -31,7 +31,7 @@ class MoviesListViewModel {
     }
         
     init(
-        coordinator: AppCoorinating,
+        coordinator: AppCoordinating,
         getAllMoviesUseCase: GetAllMoviesUseCase
     ) {
         self.disposeBag = DisposeBag()

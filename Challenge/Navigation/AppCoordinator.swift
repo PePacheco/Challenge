@@ -7,10 +7,10 @@
 
 import UIKit
 
-class AppCoordinator: AppCoorinating {
+class AppCoordinator: AppCoordinating {
 
     var children: [Coordinator]
-    var navigationController: UINavigationController
+    var navigationController: UINavigationController?
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -22,7 +22,7 @@ class AppCoordinator: AppCoorinating {
         let getAllMoviesUseCase = GetAllMoviesUseCaseImpl(repository: repository)
         let viewModel = MoviesListViewModel(coordinator: self, getAllMoviesUseCase: getAllMoviesUseCase)
         let moviesListviewController = MoviesListViewController(viewModel: viewModel)
-        navigationController.setViewControllers([moviesListviewController], animated: true)
+        navigationController?.setViewControllers([moviesListviewController], animated: true)
     }
 
 }

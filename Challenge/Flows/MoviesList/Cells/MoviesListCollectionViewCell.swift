@@ -22,6 +22,7 @@ class MoviesListCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(name: String, posterUrl: URL?) {
+        self.posterImageView.layer.cornerRadius = 4
         self.posterImageView.kf.setImage(with: posterUrl)
         self.movieNameLabel.text = name
     }

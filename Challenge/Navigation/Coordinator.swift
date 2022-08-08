@@ -9,6 +9,6 @@ import UIKit
 
 public protocol Coordinator: AnyObject {
     var children: [Coordinator] { get }
-    var navigationController: UINavigationController { get set }
+    var navigationController: UINavigationController? { get set }
     func start()
 }
