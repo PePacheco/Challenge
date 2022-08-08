@@ -52,7 +52,7 @@ class MoviesListViewController: UIViewController {
     
     private func setUpNavigationBar() {
         let lbNavTitle = UILabel (frame: CGRect(x: 0, y: 0, width: 320, height: 40))
-        lbNavTitle.textColor = UIColor.white
+        lbNavTitle.textColor = UIColor.systemBackground
         lbNavTitle.numberOfLines = 0
         lbNavTitle.center = CGPoint(x: 0, y: 0)
         lbNavTitle.textAlignment = .left
