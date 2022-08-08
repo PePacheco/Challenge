@@ -39,6 +39,9 @@
 		05ED14C828A19DC400B27489 /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ED14C628A19DC400B27489 /* MovieDetailsViewController.swift */; };
 		05ED14C928A19DC400B27489 /* MovieDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05ED14C728A19DC400B27489 /* MovieDetailsViewController.xib */; };
 		05ED14CB28A19DD200B27489 /* MovieDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ED14CA28A19DD200B27489 /* MovieDetailsViewModel.swift */; };
+		05ED14CE28A1A29100B27489 /* GetMovieDetailsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ED14CD28A1A29100B27489 /* GetMovieDetailsUseCase.swift */; };
+		05ED14D028A1A2DA00B27489 /* GetMovieDetailsUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ED14CF28A1A2DA00B27489 /* GetMovieDetailsUseCaseImpl.swift */; };
+		05ED14D328A1A41600B27489 /* MovieDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ED14D228A1A41600B27489 /* MovieDetails.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +94,9 @@
 		05ED14C628A19DC400B27489 /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
 		05ED14C728A19DC400B27489 /* MovieDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieDetailsViewController.xib; sourceTree = "<group>"; };
 		05ED14CA28A19DD200B27489 /* MovieDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewModel.swift; sourceTree = "<group>"; };
+		05ED14CD28A1A29100B27489 /* GetMovieDetailsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMovieDetailsUseCase.swift; sourceTree = "<group>"; };
+		05ED14CF28A1A2DA00B27489 /* GetMovieDetailsUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMovieDetailsUseCaseImpl.swift; sourceTree = "<group>"; };
+		05ED14D228A1A41600B27489 /* MovieDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetails.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				057CCDC528A1868900E874A8 /* Movie.swift */,
+				05ED14D228A1A41600B27489 /* MovieDetails.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -252,6 +259,7 @@
 		057CCDA128A1830E00E874A8 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				05ED14CC28A1A28000B27489 /* GetMovieDetails */,
 				05ED14C028A19A2B00B27489 /* GetAllMovies */,
 			);
 			path = UseCases;
@@ -294,6 +302,15 @@
 				05ED14CA28A19DD200B27489 /* MovieDetailsViewModel.swift */,
 			);
 			path = MovieDetails;
+			sourceTree = "<group>";
+		};
+		05ED14CC28A1A28000B27489 /* GetMovieDetails */ = {
+			isa = PBXGroup;
+			children = (
+				05ED14CD28A1A29100B27489 /* GetMovieDetailsUseCase.swift */,
+				05ED14CF28A1A2DA00B27489 /* GetMovieDetailsUseCaseImpl.swift */,
+			);
+			path = GetMovieDetails;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -444,7 +461,9 @@
 				05ED14C828A19DC400B27489 /* MovieDetailsViewController.swift in Sources */,
 				057CCDA428A1831A00E874A8 /* HTTPClient.swift in Sources */,
 				057CCDB628A183A400E874A8 /* AppCoordinating.swift in Sources */,
+				05ED14D328A1A41600B27489 /* MovieDetails.swift in Sources */,
 				057CCD6628A1824000E874A8 /* AppDelegate.swift in Sources */,
+				05ED14CE28A1A29100B27489 /* GetMovieDetailsUseCase.swift in Sources */,
 				057CCDCA28A1897900E874A8 /* GetAllMoviesUseCase.swift in Sources */,
 				05ED14CB28A19DD200B27489 /* MovieDetailsViewModel.swift in Sources */,
 				057CCDC828A187D200E874A8 /* MoviesRepository.swift in Sources */,
@@ -456,6 +475,7 @@
 				057CCDBA28A183CF00E874A8 /* MoviesListViewController.swift in Sources */,
 				057CCD6828A1824000E874A8 /* SceneDelegate.swift in Sources */,
 				05ED14C428A19ACC00B27489 /* MockAppCoordinator.swift in Sources */,
+				05ED14D028A1A2DA00B27489 /* GetMovieDetailsUseCaseImpl.swift in Sources */,
 				057CCDC628A1868900E874A8 /* Movie.swift in Sources */,
 				057CCDB228A1836600E874A8 /* Coordinator.swift in Sources */,
 			);

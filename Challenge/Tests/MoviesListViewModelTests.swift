@@ -88,5 +88,18 @@ class MoviesListViewModelTests: XCTestCase {
         
         XCTAssertEqual(movie._id, "1")
     }
+    
+    func testShowDetails() {
+        useCase!.response = MovieResponse(status: 200, results: [
+            Movie(_id: "1", title: "Test", release: "01/01/2000", image: ""),
+            Movie(_id: "2", title: "Test", release: "02/01/2000", image: ""),
+            Movie(_id: "3", title: "Test", release: "03/01/2000", image: "")
+        ])
+        viewModel!.fetchMoviesList()
+        
+        viewModel!.showDetails(at: IndexPath(row: 0, section: 0))
+        
+        XCTAssertTrue(coordinator!.hasShowedMovieDetails)
+    }
 
 }

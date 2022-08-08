@@ -108,6 +108,10 @@ extension MoviesListViewController: UICollectionViewDataSource, UICollectionView
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.viewModel.showDetails(at: indexPath)
+    }
+    
 }
 
 extension MoviesListViewController: UICollectionViewDelegateFlowLayout {

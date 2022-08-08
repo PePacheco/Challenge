@@ -24,5 +24,13 @@ class AppCoordinator: AppCoordinating {
         let moviesListviewController = MoviesListViewController(viewModel: viewModel)
         navigationController?.setViewControllers([moviesListviewController], animated: true)
     }
+    
+    func showMovieDetails(with id: String) {
+        let repository = MoviesRepository()
+        let getMovieDetailsUseCase = GetMovieDetailsUseCaseImpl(repository: repository)
+        let viewModel = MovieDetailsViewModel(coordinator: self, getMovieDetailsUseCase: getMovieDetailsUseCase, id: id)
+        let movieDetailsViewController = MovieDetailsViewController(viewModel: viewModel)
+        navigationController?.pushViewController(movieDetailsViewController, animated: true)
+    }
 
 }

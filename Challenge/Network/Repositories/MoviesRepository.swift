@@ -24,4 +24,9 @@ class MoviesRepository {
         return observable
     }
     
+    func getMovieDetails(with id: String) -> Observable<MovieDetailsResponse> {
+        let observable: Observable<MovieDetailsResponse> = self.client.get(url: "https://movies-app1.p.rapidapi.com/api/movie/\(id)")
+        return observable
+    }
+    
 }

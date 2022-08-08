@@ -11,7 +11,7 @@ import RxRelay
 
 class MoviesListViewModel {
     
-    private weak var coordinator: AppCoordinating?
+    private var coordinator: AppCoordinating?
     private let getAllMoviesUseCase: GetAllMoviesUseCase
     private let disposeBag: DisposeBag
     
@@ -36,6 +36,7 @@ class MoviesListViewModel {
     ) {
         self.disposeBag = DisposeBag()
         self.coordinator = coordinator
+        print(coordinator)
         self.getAllMoviesUseCase = getAllMoviesUseCase
         
         self.isLoading = BehaviorRelay(value: false)
@@ -56,5 +57,10 @@ class MoviesListViewModel {
     
     func getMovie(at indexPath: IndexPath) -> Movie {
         return movies.value[indexPath.row]
+    }
+    
+    func showDetails(at indexPath: IndexPath) {
+        let id = self.getMovie(at: indexPath)._id
+        self.coordinator?.showMovieDetails(with: id)
     }
 }

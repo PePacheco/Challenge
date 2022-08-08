@@ -11,6 +11,7 @@ class MockAppCoordinator: AppCoordinating {
     var children: [Coordinator]
     
     var hasStarted = false
+    var hasShowedMovieDetails = false
     
     var navigationController: UINavigationController?
     
@@ -20,6 +21,10 @@ class MockAppCoordinator: AppCoordinating {
     
     func start() {
         self.hasStarted = true
+    }
+    
+    func showMovieDetails(with id: String) {
+        self.hasShowedMovieDetails = true
     }
     
 }
