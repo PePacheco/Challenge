@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+public enum HTTPError: Error, Equatable {
+    case cancelled
+    case noResponse
+    case invalidResponse
+    case withMessage(title: String?, message: String)
+}
