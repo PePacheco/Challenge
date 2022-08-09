@@ -86,7 +86,8 @@ class MovieDetailsViewController: UIViewController {
             return
         }
         
-        self.title = movieDetails.title
+        self.setUpNavTitle(title: movieDetails.title)
+        
         self.posterImageView.kf.setImage(with: URL(string: movieDetails.image))
         self.posterImageView.layer.cornerRadius = 4
         
@@ -111,6 +112,18 @@ class MovieDetailsViewController: UIViewController {
         self.ratingLabel.hideSkeleton()
         self.releaseLabel.hideSkeleton()
         self.descriptionLabel.hideSkeleton()
+    }
+    
+    private func setUpNavTitle(title: String) {
+        let navTitle = UILabel (frame: CGRect(x: 0, y: 0, width: 320, height: 40))
+        navTitle.textColor = UIColor.systemBackground
+        navTitle.numberOfLines = 0
+        navTitle.center = CGPoint(x: 0, y: 0)
+        navTitle.textAlignment = .left
+        navTitle.text = title
+        navTitle.font = .systemFont(ofSize: 16, weight: .bold)
+
+        self.navigationItem.titleView = navTitle
     }
 
 }
