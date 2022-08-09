@@ -62,7 +62,8 @@ class MovieDetailsViewController: UIViewController {
     }
     
     private func bindViewModel() {
-        self.viewModel.errorObservable.bind { error in
+        self.viewModel.errorObservable.bind {[weak self] error in
+            guard let self = self else { return }
             if !error.isEmpty {
                 DispatchQueue.main.async {
                     self.presentAlert(message: error, title: "Oops")
@@ -70,7 +71,8 @@ class MovieDetailsViewController: UIViewController {
             }
         }.disposed(by: disposeBag)
         
-        self.viewModel.movieObservable.bind { movie in
+        self.viewModel.movieObservable.bind {[weak self] movie in
+            guard let self = self else { return }
             if let movie = movie {
                 DispatchQueue.main.async {
                     self.movieDetails = movie

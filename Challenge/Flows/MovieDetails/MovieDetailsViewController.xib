@@ -29,7 +29,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gP1-Gz-fho">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="242.5"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image" translatesAutoresizingMaskIntoConstraints="NO" id="AE8-0s-SHJ">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_poster" translatesAutoresizingMaskIntoConstraints="NO" id="AE8-0s-SHJ">
                                     <rect key="frame" x="16" y="16" width="100" height="175"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="100" id="9ws-5m-aqc"/>
@@ -101,7 +101,7 @@
         </view>
     </objects>
     <resources>
-        <image name="image" width="300" height="451"/>
+        <image name="default_poster" width="306" height="455"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

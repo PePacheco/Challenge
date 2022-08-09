@@ -63,7 +63,8 @@ class MoviesListViewController: UIViewController {
     }
     
     private func bindViewModel() {
-        self.viewModel.isLoadingObservable.bind { isLoading in
+        self.viewModel.isLoadingObservable.bind {[weak self] isLoading in
+            guard let self = self else { return }
             if isLoading {
                 DispatchQueue.main.async {
                     self.presentLoadingScreen()
@@ -75,7 +76,8 @@ class MoviesListViewController: UIViewController {
             }
         }.disposed(by: disposeBag)
         
-        self.viewModel.errorObservable.bind { error in
+        self.viewModel.errorObservable.bind {[weak self] error in
+            guard let self = self else { return }
             if !error.isEmpty {
                 DispatchQueue.main.async {
                     self.presentAlert(message: error, title: "Oops")
@@ -83,7 +85,8 @@ class MoviesListViewController: UIViewController {
             }
         }.disposed(by: disposeBag)
         
-        self.viewModel.moviesObservable.bind { movies in
+        self.viewModel.moviesObservable.bind {[weak self] movies in
+            guard let self = self else { return }
             DispatchQueue.main.async {
                 self.movies = movies
             }
