@@ -68,7 +68,7 @@ class MovieDetailsViewModelTests: XCTestCase {
         
         viewModel!.errorObservable.bind { error in
             XCTAssertEqual(error, "Ocorreu um erro ao buscar seus dados.")
-        }.disposed(by: disposeBag)
+        }.disposed(by: disposeBag!)
     }
 
 }
