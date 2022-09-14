@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import RxSwift
+import Combine
 
 class GetAllMoviesUseCaseImpl: GetAllMoviesUseCase {
     
@@ -16,7 +16,7 @@ class GetAllMoviesUseCaseImpl: GetAllMoviesUseCase {
         self.repository = repository
     }
     
-    func execute() -> Observable<MovieResponse> {
+    func execute() -> AnyPublisher<MovieResponse, APIError> {
         return repository.getAllMovies()
     }
 }

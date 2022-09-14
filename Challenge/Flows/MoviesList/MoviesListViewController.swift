@@ -6,15 +6,14 @@
 //
 
 import UIKit
-import RxSwift
-import RxCocoa
+import Combine
 
 class MoviesListViewController: UIViewController {
     
     @IBOutlet weak var moviesCollectionView: UICollectionView!
     
     private let viewModel: MoviesListViewModel
-    private let disposeBag: DisposeBag
+    private var cancellables: [AnyCancellable] = []
     private var movies: [Movie] = [] {
         didSet {
             self.moviesCollectionView.reloadData()
@@ -23,8 +22,11 @@ class MoviesListViewController: UIViewController {
         
     init(viewModel: MoviesListViewModel) {
         self.viewModel = viewModel
-        self.disposeBag = DisposeBag()
         super.init(nibName: String(describing: Self.self), bundle: nil)
+    }
+    
+    deinit {
+        self.cancellables = []
     }
     
     required init?(coder: NSCoder) {
@@ -63,34 +65,26 @@ class MoviesListViewController: UIViewController {
     }
     
     private func bindViewModel() {
-        self.viewModel.isLoadingObservable.bind {[weak self] isLoading in
+        self.viewModel.isLoadingPublisher.sink {[weak self] isLoading in
             guard let self = self else { return }
             if isLoading {
-                DispatchQueue.main.async {
-                    self.presentLoadingScreen()
-                }
+                self.presentLoadingScreen()
             } else {
-                DispatchQueue.main.async {
-                    self.dismiss(animated: true)
-                }
+                self.dismiss(animated: true)
             }
-        }.disposed(by: disposeBag)
+        }.store(in: &cancellables)
         
-        self.viewModel.errorObservable.bind {[weak self] error in
+        self.viewModel.errorPublisher.sink {[weak self] error in
             guard let self = self else { return }
             if !error.isEmpty {
-                DispatchQueue.main.async {
-                    self.presentAlert(message: error, title: "Oops")
-                }
+                self.presentAlert(message: error, title: "Oops")
             }
-        }.disposed(by: disposeBag)
+        }.store(in: &cancellables)
         
-        self.viewModel.moviesObservable.bind {[weak self] movies in
+        self.viewModel.moviesPublisher.sink {[weak self] movies in
             guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.movies = movies
-            }
-        }.disposed(by: disposeBag)
+            self.movies = movies
+        }.store(in: &cancellables)
     }
 
 
@@ -122,7 +116,7 @@ extension MoviesListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let screenSize = UIScreen.main.bounds.size
         let cellWidth = (screenSize.width - 48)/2
-        return CGSize(width: cellWidth, height: cellWidth * 1.35)
+        return CGSize(width: cellWidth, height: cellWidth * 1.42)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

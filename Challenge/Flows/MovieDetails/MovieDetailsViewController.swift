@@ -6,9 +6,8 @@
 //
 
 import UIKit
-import RxSwift
-import RxCocoa
 import SkeletonView
+import Combine
 
 class MovieDetailsViewController: UIViewController {
     
@@ -19,7 +18,7 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     
     private let viewModel: MovieDetailsViewModel
-    private let disposeBag: DisposeBag
+    private var cancellables: [AnyCancellable] = []
     private var movieDetails: MovieDetails? {
         didSet {
             self.updateUI()
@@ -28,8 +27,11 @@ class MovieDetailsViewController: UIViewController {
 
     init(viewModel: MovieDetailsViewModel) {
         self.viewModel = viewModel
-        self.disposeBag = DisposeBag()
         super.init(nibName: String(describing: Self.self), bundle: nil)
+    }
+    
+    deinit {
+        self.cancellables = []
     }
     
     required init?(coder: NSCoder) {
@@ -62,23 +64,21 @@ class MovieDetailsViewController: UIViewController {
     }
     
     private func bindViewModel() {
-        self.viewModel.errorObservable.bind {[weak self] error in
+        self.viewModel.errorPublisher.sink {[weak self] error in
             guard let self = self else { return }
             if !error.isEmpty {
                 DispatchQueue.main.async {
                     self.presentAlert(message: error, title: "Oops")
                 }
             }
-        }.disposed(by: disposeBag)
+        }.store(in: &cancellables)
         
-        self.viewModel.movieObservable.bind {[weak self] movie in
+        self.viewModel.moviePublisher.sink {[weak self] movie in
             guard let self = self else { return }
-            if let movie = movie {
-                DispatchQueue.main.async {
-                    self.movieDetails = movie
-                }
+            DispatchQueue.main.async {
+                self.movieDetails = movie
             }
-        }.disposed(by: disposeBag)
+        }.store(in: &cancellables)
     }
     
     private func updateUI() {
@@ -89,6 +89,7 @@ class MovieDetailsViewController: UIViewController {
         self.setUpNavTitle(title: movieDetails.title)
         
         self.posterImageView.kf.setImage(with: URL(string: movieDetails.image))
+        self.posterImageView.clipsToBounds = true
         self.posterImageView.layer.cornerRadius = 4
         
         let fullString = NSMutableAttributedString(string: "")

@@ -6,17 +6,19 @@
 //
 
 import Foundation
-import RxSwift
+import Combine
 
 class MockGetMovieDetailsUseCase: GetMovieDetailsUseCase {
     init() {}
     
     var response: MovieDetailsResponse?
     
-    func execute(with id: String) -> Observable<MovieDetailsResponse> {
+    func execute(with id: String) -> AnyPublisher<MovieDetailsResponse, APIError> {
         if let response = response {
-            return .just(response)
+            return Just(response)
+                .setFailureType(to: APIError.self)
+                .eraseToAnyPublisher()
         }
-        return .error(HTTPError.invalidResponse)
+        return Fail(error: APIError.decodingFailed).eraseToAnyPublisher()
     }
 }

@@ -6,7 +6,7 @@
 //
 
 import XCTest
-import RxSwift
+import Combine
 
 @testable import Challenge
 class MovieDetailsViewModelTests: XCTestCase {
@@ -14,11 +14,11 @@ class MovieDetailsViewModelTests: XCTestCase {
     var viewModel: MovieDetailsViewModel?
     var useCase: MockGetMovieDetailsUseCase?
     var coordinator: MockAppCoordinator?
-    var disposeBag: DisposeBag?
+    var cancellables: [AnyCancellable]?
 
     override func setUp() {
         super.setUp()
-        disposeBag = DisposeBag()
+        cancellables = []
         useCase = MockGetMovieDetailsUseCase()
         coordinator = MockAppCoordinator()
         viewModel = MovieDetailsViewModel(coordinator: coordinator!, getMovieDetailsUseCase: useCase!, id: "dh0319h1")
@@ -28,47 +28,43 @@ class MovieDetailsViewModelTests: XCTestCase {
         viewModel = nil
         coordinator = nil
         useCase = nil
-        disposeBag = nil
+        cancellables = nil
         super.tearDown()
     }
     
     func testInit() {
-        viewModel!.movieObservable.bind { movie in
+        viewModel!.moviePublisher.sink { movie in
             XCTAssertNil(movie)
-        }.disposed(by: disposeBag!)
+        }.store(in: &cancellables!)
         
-        viewModel!.errorObservable.bind{ error in
+        viewModel!.errorPublisher.sink{ error in
             XCTAssertEqual(error, "")
-        }.disposed(by: disposeBag!)
+        }.store(in: &cancellables!)
         
-        viewModel!.isLoadingObservable.bind { isLoading in
+        viewModel!.isLoadingPublisher.sink { isLoading in
             XCTAssertFalse(isLoading)
-        }.disposed(by: disposeBag!)
+        }.store(in: &cancellables!)
     }
     
     func testFetchMovieDetailsSuccess() {
         useCase!.response = MovieDetailsResponse(result: MovieDetails(image: "image.jpg", title: "Title", rating: "6/10", description: "Description", release: "10/01/1992", genres: []))
         viewModel!.fetchMovieDetails()
         
-        viewModel!.movieObservable.bind { movie in
-            guard let movie = movie else {
-                XCTAssertTrue(false)
-                return
-            }
+        viewModel!.moviePublisher.sink { movie in
             XCTAssertEqual(movie.title, "Title")
-        }.disposed(by: disposeBag!)
+        }.store(in: &cancellables!)
     }
     
     func testFetchMovieDetailsFailure() {
         viewModel!.fetchMovieDetails()
         
-        viewModel!.movieObservable.bind { movie in
+        viewModel!.moviePublisher.sink { movie in
             XCTAssertNil(movie)
-        }.disposed(by: disposeBag!)
+        }.store(in: &cancellables!)
         
-        viewModel!.errorObservable.bind { error in
+        viewModel!.errorPublisher.sink { error in
             XCTAssertEqual(error, "Ocorreu um erro ao buscar seus dados.")
-        }.disposed(by: disposeBag!)
+        }.store(in: &cancellables!)
     }
 
 }

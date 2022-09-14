@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import RxSwift
+import Combine
 
 class MoviesRepository {
     
@@ -19,14 +19,14 @@ class MoviesRepository {
         self.client = HTTPClient(withHeaders: headers)
     }
     
-    func getAllMovies() -> Observable<MovieResponse> {
-        let observable: Observable<MovieResponse> = self.client.get(url: "https://movies-app1.p.rapidapi.com/api/movies")
-        return observable
+    func getAllMovies() -> AnyPublisher<MovieResponse, APIError> {
+        let publisher: AnyPublisher<MovieResponse, APIError> = self.client.get(url: "https://movies-app1.p.rapidapi.com/api/movies")
+        return publisher
     }
     
-    func getMovieDetails(with id: String) -> Observable<MovieDetailsResponse> {
-        let observable: Observable<MovieDetailsResponse> = self.client.get(url: "https://movies-app1.p.rapidapi.com/api/movie/\(id)")
-        return observable
+    func getMovieDetails(with id: String) -> AnyPublisher<MovieDetailsResponse, APIError> {
+        let publisher: AnyPublisher<MovieDetailsResponse, APIError> = self.client.get(url: "https://movies-app1.p.rapidapi.com/api/movie/\(id)")
+        return publisher
     }
     
 }

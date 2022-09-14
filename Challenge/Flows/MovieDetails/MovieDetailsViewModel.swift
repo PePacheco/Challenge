@@ -6,29 +6,28 @@
 //
 
 import Foundation
-import RxSwift
-import RxRelay
+import Combine
 
 class MovieDetailsViewModel {
     
     private var coordinator: AppCoordinating?
     private var getMovieDetailsUseCase: GetMovieDetailsUseCase
-    private let disposeBag: DisposeBag
     private let id: String
+    private var cancellable: AnyCancellable?
     
-    private let movie: BehaviorRelay<MovieDetails?>
-    var movieObservable: Observable<MovieDetails?> {
-        return movie.asObservable()
+    private let movie: PassthroughSubject<MovieDetails, Never>
+    var moviePublisher: AnyPublisher<MovieDetails, Never> {
+        return movie.eraseToAnyPublisher()
     }
     
-    private let isLoading: BehaviorRelay<Bool>
-    var isLoadingObservable: Observable<Bool> {
-        return isLoading.asObservable()
+    private let isLoading: PassthroughSubject<Bool, Never>
+    var isLoadingPublisher: AnyPublisher<Bool, Never> {
+        return isLoading.eraseToAnyPublisher()
     }
     
-    private let error: BehaviorRelay<String>
-    var errorObservable: Observable<String> {
-        return error.asObservable()
+    private let error: PassthroughSubject<String, Never>
+    var errorPublisher: AnyPublisher<String, Never> {
+        return error.eraseToAnyPublisher()
     }
     
     init(
@@ -39,22 +38,27 @@ class MovieDetailsViewModel {
         self.id = id
         self.coordinator = coordinator
         self.getMovieDetailsUseCase = getMovieDetailsUseCase
-        self.disposeBag = DisposeBag()
         
-        self.movie = BehaviorRelay(value: nil)
-        self.isLoading = BehaviorRelay(value: false)
-        self.error = BehaviorRelay(value: "")
+        self.isLoading = PassthroughSubject<Bool, Never>()
+        self.movie = PassthroughSubject<MovieDetails, Never>()
+        self.error = PassthroughSubject<String, Never>()
     }
     
     func fetchMovieDetails() {
-        self.isLoading.accept(true)
-        self.getMovieDetailsUseCase.execute(with: self.id).subscribe { response in
-            self.movie.accept(response.result)
-            self.isLoading.accept(false)
-        } onError: { error in
-            self.isLoading.accept(false)
-            self.error.accept("Ocorreu um erro ao buscar seus dados.")
-        }.disposed(by: disposeBag)
+        self.isLoading.send(true)
+        
+        self.cancellable = self.getMovieDetailsUseCase.execute(with: self.id)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                    case .finished: break
+                    case .failure(_):
+                        self.isLoading.send(false)
+                        self.error.send("Ocorreu um erro ao buscar seus dados.")
+                }
+            }) { response in
+                self.movie.send(response.result)
+                self.isLoading.send(false)
+            }
 
     }
     

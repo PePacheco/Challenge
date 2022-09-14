@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import RxSwift
+import Combine
 
 protocol GetAllMoviesUseCase {
-    func execute() -> Observable<MovieResponse>
+    func execute() -> AnyPublisher<MovieResponse, APIError>
 }

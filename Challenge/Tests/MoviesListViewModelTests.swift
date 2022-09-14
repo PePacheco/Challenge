@@ -6,8 +6,7 @@
 //
 
 import XCTest
-import RxSwift
-import RxCocoa
+import Combine
 
 @testable import Challenge
 class MoviesListViewModelTests: XCTestCase {
@@ -15,11 +14,10 @@ class MoviesListViewModelTests: XCTestCase {
     var viewModel: MoviesListViewModel?
     var useCase: MockGetAllMoviesUseCase?
     var coordinator: MockAppCoordinator?
-    var disposeBag: DisposeBag?
+    var cancellables: [AnyCancellable]? = []
 
     override func setUp() {
         super.setUp()
-        disposeBag = DisposeBag()
         useCase = MockGetAllMoviesUseCase()
         coordinator = MockAppCoordinator()
         viewModel = MoviesListViewModel(coordinator: coordinator!, getAllMoviesUseCase: useCase!)
@@ -29,22 +27,22 @@ class MoviesListViewModelTests: XCTestCase {
         viewModel = nil
         coordinator = nil
         useCase = nil
-        disposeBag = nil
+        cancellables = nil
         super.tearDown()
     }
     
     func testInit() {
-        viewModel!.moviesObservable.bind { movies in
+        viewModel!.moviesPublisher.sink { movies in
             XCTAssertEqual(movies.count, 0)
-        }.disposed(by: disposeBag!)
+        }.store(in: &cancellables!)
         
-        viewModel!.errorObservable.bind{ error in
+        viewModel!.errorPublisher.sink{ error in
             XCTAssertEqual(error, "")
-        }.disposed(by: disposeBag!)
+        }.store(in: &cancellables!)
         
-        viewModel!.isLoadingObservable.bind { isLoading in
+        viewModel!.isLoadingPublisher.sink { isLoading in
             XCTAssertFalse(isLoading)
-        }.disposed(by: disposeBag!)
+        }.store(in: &cancellables!)
     }
     
     func testFetchMoviesSuccess() {
@@ -55,25 +53,25 @@ class MoviesListViewModelTests: XCTestCase {
         ])
         viewModel!.fetchMoviesList()
         
-        viewModel!.moviesObservable.bind { movies in
+        viewModel!.moviesPublisher.sink { movies in
             XCTAssertEqual(movies.count, 3)
-        }.disposed(by: disposeBag!)
+        }.store(in: &cancellables!)
         
-        viewModel!.errorObservable.bind{ error in
+        viewModel!.errorPublisher.sink{ error in
             XCTAssertEqual(error, "")
-        }.disposed(by: disposeBag!)
+        }.store(in: &cancellables!)
     }
     
     func testFetchMoviesFailure() {
         viewModel!.fetchMoviesList()
         
-        viewModel!.moviesObservable.bind { movies in
+        viewModel!.moviesPublisher.sink { movies in
             XCTAssertEqual(movies.count, 0)
-        }.disposed(by: disposeBag!)
+        }.store(in: &cancellables!)
         
-        viewModel!.errorObservable.bind{ error in
+        viewModel!.errorPublisher.sink{ error in
             XCTAssertEqual(error, "Ocorreu um erro ao buscar seus dados.")
-        }.disposed(by: disposeBag!)
+        }.store(in: &cancellables!)
     }
     
     func testGetMovie() {
