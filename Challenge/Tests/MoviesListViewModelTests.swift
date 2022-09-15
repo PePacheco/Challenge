@@ -31,40 +31,26 @@ class MoviesListViewModelTests: XCTestCase {
         super.tearDown()
     }
     
-    func testInit() {
-        viewModel!.moviesPublisher.sink { movies in
-            XCTAssertEqual(movies.count, 0)
-        }.store(in: &cancellables!)
-        
-        viewModel!.errorPublisher.sink{ error in
-            XCTAssertEqual(error, "")
-        }.store(in: &cancellables!)
-        
-        viewModel!.isLoadingPublisher.sink { isLoading in
-            XCTAssertFalse(isLoading)
-        }.store(in: &cancellables!)
-    }
-    
     func testFetchMoviesSuccess() {
         useCase!.response = MovieResponse(status: 200, results: [
             Movie(_id: "1", title: "Test", release: "01/01/2000", image: ""),
             Movie(_id: "2", title: "Test", release: "02/01/2000", image: ""),
             Movie(_id: "3", title: "Test", release: "03/01/2000", image: "")
         ])
+        
+        viewModel!.errorPublisher.sink{ error in
+            XCTAssertEqual(error, "")
+        }.store(in: &cancellables!)
+        
         viewModel!.fetchMoviesList()
         
         viewModel!.moviesPublisher.sink { movies in
             XCTAssertEqual(movies.count, 3)
         }.store(in: &cancellables!)
-        
-        viewModel!.errorPublisher.sink{ error in
-            XCTAssertEqual(error, "")
-        }.store(in: &cancellables!)
+
     }
     
     func testFetchMoviesFailure() {
-        viewModel!.fetchMoviesList()
-        
         viewModel!.moviesPublisher.sink { movies in
             XCTAssertEqual(movies.count, 0)
         }.store(in: &cancellables!)
@@ -72,6 +58,8 @@ class MoviesListViewModelTests: XCTestCase {
         viewModel!.errorPublisher.sink{ error in
             XCTAssertEqual(error, "Ocorreu um erro ao buscar seus dados.")
         }.store(in: &cancellables!)
+        
+        viewModel!.fetchMoviesList()
     }
     
     func testGetMovie() {

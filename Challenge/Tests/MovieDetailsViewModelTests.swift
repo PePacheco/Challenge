@@ -32,32 +32,17 @@ class MovieDetailsViewModelTests: XCTestCase {
         super.tearDown()
     }
     
-    func testInit() {
-        viewModel!.moviePublisher.sink { movie in
-            XCTAssertNil(movie)
-        }.store(in: &cancellables!)
-        
-        viewModel!.errorPublisher.sink{ error in
-            XCTAssertEqual(error, "")
-        }.store(in: &cancellables!)
-        
-        viewModel!.isLoadingPublisher.sink { isLoading in
-            XCTAssertFalse(isLoading)
-        }.store(in: &cancellables!)
-    }
-    
     func testFetchMovieDetailsSuccess() {
         useCase!.response = MovieDetailsResponse(result: MovieDetails(image: "image.jpg", title: "Title", rating: "6/10", description: "Description", release: "10/01/1992", genres: []))
-        viewModel!.fetchMovieDetails()
         
         viewModel!.moviePublisher.sink { movie in
             XCTAssertEqual(movie.title, "Title")
         }.store(in: &cancellables!)
+        
+        viewModel!.fetchMovieDetails()
     }
     
     func testFetchMovieDetailsFailure() {
-        viewModel!.fetchMovieDetails()
-        
         viewModel!.moviePublisher.sink { movie in
             XCTAssertNil(movie)
         }.store(in: &cancellables!)
@@ -65,6 +50,8 @@ class MovieDetailsViewModelTests: XCTestCase {
         viewModel!.errorPublisher.sink { error in
             XCTAssertEqual(error, "Ocorreu um erro ao buscar seus dados.")
         }.store(in: &cancellables!)
+        
+        viewModel!.fetchMovieDetails()
     }
 
 }
