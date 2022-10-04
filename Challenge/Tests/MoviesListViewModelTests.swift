@@ -32,21 +32,26 @@ class MoviesListViewModelTests: XCTestCase {
     }
     
     func testFetchMoviesSuccess() {
-        useCase!.response = MovieResponse(status: 200, results: [
+        let expected = MovieResponse(status: 200, results: [
             Movie(_id: "1", title: "Test", release: "01/01/2000", image: ""),
             Movie(_id: "2", title: "Test", release: "02/01/2000", image: ""),
             Movie(_id: "3", title: "Test", release: "03/01/2000", image: "")
         ])
+        useCase!.response = expected
         
         viewModel!.errorPublisher.sink{ error in
             XCTAssertEqual(error, "")
         }.store(in: &cancellables!)
         
+        viewModel!.moviesPublisher
+            .dropFirst()
+            .sink { movies in
+                XCTAssertEqual(movies, expected.results)
+        }.store(in: &cancellables!)
+        
         viewModel!.fetchMoviesList()
         
-        viewModel!.moviesPublisher.sink { movies in
-            XCTAssertEqual(movies.count, 3)
-        }.store(in: &cancellables!)
+        
 
     }
     

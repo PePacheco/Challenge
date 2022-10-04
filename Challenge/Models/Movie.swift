@@ -12,9 +12,11 @@ struct MovieResponse: Codable {
     let results: [Movie]
 }
 
-struct Movie: Codable {
+struct Movie: Codable, Equatable {
     let _id: String
     let title: String
     let release: String
     let image: String
+    
+    
 }

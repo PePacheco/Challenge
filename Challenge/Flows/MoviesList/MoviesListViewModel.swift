@@ -46,7 +46,8 @@ class MoviesListViewModel {
         
         self.cancellable = self.getAllMoviesUseCase.execute()
             .map(\.results)
-            .sink(receiveCompletion: { completion in
+            .sink(receiveCompletion: {[weak self] completion in
+                guard let self = self else { return }
                 switch completion {
                     case .finished: break
                     case .failure(_):
