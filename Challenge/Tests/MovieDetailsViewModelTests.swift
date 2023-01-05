@@ -48,7 +48,7 @@ class MovieDetailsViewModelTests: XCTestCase {
         }.store(in: &cancellables!)
         
         viewModel!.errorPublisher.sink { error in
-            XCTAssertEqual(error, "Ocorreu um erro ao buscar seus dados.")
+            XCTAssertEqual(error, "An error occured while fetching the data.")
         }.store(in: &cancellables!)
         
         viewModel!.fetchMovieDetails()
