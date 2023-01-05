@@ -21,7 +21,7 @@ class MovieDetailsViewModelTests: XCTestCase {
         cancellables = []
         useCase = MockGetMovieDetailsUseCase()
         coordinator = MockAppCoordinator()
-        viewModel = MovieDetailsViewModel(coordinator: coordinator!, getMovieDetailsUseCase: useCase!, id: "dh0319h1")
+        viewModel = MovieDetailsViewModel(coordinator: coordinator!, getMovieDetailsUseCase: useCase!, id: 123456)
     }
     
     override func tearDown() {
@@ -33,7 +33,7 @@ class MovieDetailsViewModelTests: XCTestCase {
     }
     
     func testFetchMovieDetailsSuccess() {
-        useCase!.response = MovieDetailsResponse(result: MovieDetails(image: "image.jpg", title: "Title", rating: "6/10", description: "Description", release: "10/01/1992", genres: []))
+        useCase!.response = MovieDetails(poster_path: "image.jpg", title: "Title", overview: "Description", release_date: "10/01/1992", genres: [])
         
         viewModel!.moviePublisher.sink { movie in
             XCTAssertEqual(movie.title, "Title")

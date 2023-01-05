@@ -32,10 +32,10 @@ class MoviesListViewModelTests: XCTestCase {
     }
     
     func testFetchMoviesSuccess() {
-        let expected = MovieResponse(status: 200, results: [
-            Movie(_id: "1", title: "Test", release: "01/01/2000", image: ""),
-            Movie(_id: "2", title: "Test", release: "02/01/2000", image: ""),
-            Movie(_id: "3", title: "Test", release: "03/01/2000", image: "")
+        let expected = MovieResponse(results: [
+            Movie(id: 1, title: "Test", release_date: "01/01/2000", poster_path: ""),
+            Movie(id: 2, title: "Test", release_date: "02/01/2000", poster_path: ""),
+            Movie(id: 3, title: "Test", release_date: "03/01/2000", poster_path: "")
         ])
         useCase!.response = expected
         
@@ -68,23 +68,23 @@ class MoviesListViewModelTests: XCTestCase {
     }
     
     func testGetMovie() {
-        useCase!.response = MovieResponse(status: 200, results: [
-            Movie(_id: "1", title: "Test", release: "01/01/2000", image: ""),
-            Movie(_id: "2", title: "Test", release: "02/01/2000", image: ""),
-            Movie(_id: "3", title: "Test", release: "03/01/2000", image: "")
+        useCase!.response = MovieResponse(results: [
+            Movie(id: 1, title: "Test", release_date: "01/01/2000", poster_path: ""),
+            Movie(id: 2, title: "Test", release_date: "02/01/2000", poster_path: ""),
+            Movie(id: 3, title: "Test", release_date: "03/01/2000", poster_path: "")
         ])
         viewModel!.fetchMoviesList()
         
         let movie = viewModel!.getMovie(at: IndexPath(row: 0, section: 0))
         
-        XCTAssertEqual(movie._id, "1")
+        XCTAssertEqual(movie.id, 1)
     }
     
     func testShowDetails() {
-        useCase!.response = MovieResponse(status: 200, results: [
-            Movie(_id: "1", title: "Test", release: "01/01/2000", image: ""),
-            Movie(_id: "2", title: "Test", release: "02/01/2000", image: ""),
-            Movie(_id: "3", title: "Test", release: "03/01/2000", image: "")
+        useCase!.response = MovieResponse(results: [
+            Movie(id: 1, title: "Test", release_date: "01/01/2000", poster_path: ""),
+            Movie(id: 2, title: "Test", release_date: "02/01/2000", poster_path: ""),
+            Movie(id: 3, title: "Test", release_date: "03/01/2000", poster_path: "")
         ])
         viewModel!.fetchMoviesList()
         
