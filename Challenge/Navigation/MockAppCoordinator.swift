@@ -23,7 +23,7 @@ class MockAppCoordinator: AppCoordinating {
         self.hasStarted = true
     }
     
-    func showMovieDetails(with id: String) {
+    func showMovieDetails(with id: Int) {
         self.hasShowedMovieDetails = true
     }
     

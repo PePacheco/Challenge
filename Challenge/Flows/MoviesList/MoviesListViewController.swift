@@ -59,6 +59,7 @@ class MoviesListViewController: UIViewController {
         lbNavTitle.numberOfLines = 0
         lbNavTitle.center = CGPoint(x: 0, y: 0)
         lbNavTitle.textAlignment = .left
+        lbNavTitle.text = "Cinema"
         lbNavTitle.font = .systemFont(ofSize: 20, weight: .bold)
 
         self.navigationItem.titleView = lbNavTitle

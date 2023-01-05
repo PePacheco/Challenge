@@ -11,9 +11,9 @@ import Combine
 class MockGetMovieDetailsUseCase: GetMovieDetailsUseCase {
     init() {}
     
-    var response: MovieDetailsResponse?
+    var response: MovieDetails?
     
-    func execute(with id: String) -> AnyPublisher<MovieDetailsResponse, APIError> {
+    func execute(with id: String) -> AnyPublisher<MovieDetails, APIError> {
         if let response = response {
             return Just(response)
                 .setFailureType(to: APIError.self)

@@ -7,18 +7,18 @@
 
 import Foundation
 
-
-struct MovieDetailsResponse: Codable {
-    let result: MovieDetails
+struct MovieDetails: Codable {
+    let poster_path: String
+    let title: String
+    let overview: String
+    let release_date: String
+    let genres: [MovieGenre]
 }
 
-struct MovieDetails: Codable {
-    let image: String
-    let title: String
-    let rating: String
-    let description: String
-    let release: String
-    let genres: [MovieGenre]
+extension MovieDetails {
+    var image: String {
+        return "https://image.tmdb.org/t/p/w500\(poster_path)"
+    }
 }
 
 struct MovieGenre: Codable {

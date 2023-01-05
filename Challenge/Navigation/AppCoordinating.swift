@@ -8,5 +8,5 @@
 import Foundation
 
 protocol AppCoordinating: Coordinator {
-    func showMovieDetails(with id: String)
+    func showMovieDetails(with id: Int)
 }

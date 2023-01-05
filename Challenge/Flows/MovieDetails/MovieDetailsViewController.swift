@@ -40,11 +40,6 @@ class MovieDetailsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.posterImageView.isSkeletonable = true
-        self.genreLabel.isSkeletonable = true
-        self.ratingLabel.isSkeletonable = true
-        self.releaseLabel.isSkeletonable = true
-        self.descriptionLabel.isSkeletonable = true
         
         self.posterImageView.showAnimatedGradientSkeleton()
         self.genreLabel.showAnimatedGradientSkeleton()
@@ -60,6 +55,11 @@ class MovieDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.posterImageView.isSkeletonable = true
+        self.genreLabel.isSkeletonable = true
+        self.ratingLabel.isSkeletonable = true
+        self.releaseLabel.isSkeletonable = true
+        self.descriptionLabel.isSkeletonable = true
         self.bindViewModel()
     }
     
@@ -75,9 +75,7 @@ class MovieDetailsViewController: UIViewController {
         
         self.viewModel.moviePublisher.sink {[weak self] movie in
             guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.movieDetails = movie
-            }
+            self.movieDetails = movie
         }.store(in: &cancellables)
     }
     
@@ -101,12 +99,14 @@ class MovieDetailsViewController: UIViewController {
         let startImageString = NSAttributedString(attachment: imageAttachment)
 
         fullString.append(startImageString)
-        fullString.append(NSAttributedString(string: movieDetails.rating))
+        fullString.append(NSAttributedString(string: "\(3)"))
         
-        self.ratingLabel.attributedText = fullString
-        self.genreLabel.text = movieDetails.genres.map { $0.name }.joined(separator: ", ")
-        self.releaseLabel.text = "Estréia: \(movieDetails.release)"
-        self.descriptionLabel.text = movieDetails.description
+        DispatchQueue.main.async {
+            self.ratingLabel.attributedText = fullString
+            self.genreLabel.text = movieDetails.genres.map { $0.name }.joined(separator: ", ")
+            self.releaseLabel.text = "Release: \(movieDetails.release_date)"
+            self.descriptionLabel.text = movieDetails.overview
+        }
         
         self.posterImageView.hideSkeleton()
         self.genreLabel.hideSkeleton()

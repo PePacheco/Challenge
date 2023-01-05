@@ -11,21 +11,22 @@ import Combine
 class MoviesRepository {
     
     let client: HTTPClient
+    private let apiKey = "84409706477b6eec19f50e5fe64c664c"
     
     init() {
         let headers = [
-            "X-RapidAPI-Key": "25e6f66d5amsh2d7177d1f169e8ep15a9d5jsn4cfb9189ad7e"
+            "X-RapidAPI-Key": "aa7fd08df3msh3ca988fb3e05b7ap1bb334jsn4f34a423852b"
         ]
         self.client = HTTPClient(withHeaders: headers)
     }
     
     func getAllMovies() -> AnyPublisher<MovieResponse, APIError> {
-        let publisher: AnyPublisher<MovieResponse, APIError> = self.client.get(url: "https://movies-app1.p.rapidapi.com/api/movies")
+        let publisher: AnyPublisher<MovieResponse, APIError> = self.client.get(url: "https://api.themoviedb.org/3/movie/popular?api_key=\(apiKey)")
         return publisher
     }
     
-    func getMovieDetails(with id: String) -> AnyPublisher<MovieDetailsResponse, APIError> {
-        let publisher: AnyPublisher<MovieDetailsResponse, APIError> = self.client.get(url: "https://movies-app1.p.rapidapi.com/api/movie/\(id)")
+    func getMovieDetails(with id: String) -> AnyPublisher<MovieDetails, APIError> {
+        let publisher: AnyPublisher<MovieDetails, APIError> = self.client.get(url: "https://api.themoviedb.org/3/movie/\(id)?api_key=\(apiKey)")
         return publisher
     }
     

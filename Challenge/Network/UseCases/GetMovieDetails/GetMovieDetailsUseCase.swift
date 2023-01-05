@@ -9,5 +9,5 @@ import Foundation
 import Combine
 
 protocol GetMovieDetailsUseCase {
-    func execute(with id: String) -> AnyPublisher<MovieDetailsResponse, APIError>
+    func execute(with id: String) -> AnyPublisher<MovieDetails, APIError>
 }

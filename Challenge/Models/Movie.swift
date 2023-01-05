@@ -8,15 +8,18 @@
 import Foundation
 
 struct MovieResponse: Codable {
-    let status: Int
     let results: [Movie]
 }
 
 struct Movie: Codable, Equatable {
-    let _id: String
+    let id: Int
     let title: String
-    let release: String
-    let image: String
-    
-    
+    let release_date: String
+    let poster_path: String
+}
+
+extension Movie {
+    var image: String {
+        return "https://image.tmdb.org/t/p/w500\(poster_path)"
+    }
 }

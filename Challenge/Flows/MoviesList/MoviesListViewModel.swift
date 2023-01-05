@@ -65,7 +65,7 @@ class MoviesListViewModel {
     }
     
     func showDetails(at indexPath: IndexPath) {
-        let id = self.getMovie(at: indexPath)._id
+        let id = self.getMovie(at: indexPath).id
         self.coordinator?.showMovieDetails(with: id)
     }
 }

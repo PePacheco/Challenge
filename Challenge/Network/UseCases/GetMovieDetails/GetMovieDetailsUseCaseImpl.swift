@@ -16,7 +16,7 @@ class GetMovieDetailsUseCaseImpl: GetMovieDetailsUseCase {
         self.repository = repository
     }
     
-    func execute(with id: String) -> AnyPublisher<MovieDetailsResponse, APIError> {
+    func execute(with id: String) -> AnyPublisher<MovieDetails, APIError> {
         return repository.getMovieDetails(with: id)
     }
 }

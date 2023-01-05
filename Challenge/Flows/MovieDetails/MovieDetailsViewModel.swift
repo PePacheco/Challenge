@@ -12,7 +12,7 @@ class MovieDetailsViewModel {
     
     private var coordinator: AppCoordinating?
     private var getMovieDetailsUseCase: GetMovieDetailsUseCase
-    private let id: String
+    private let id: Int
     private var cancellable: AnyCancellable?
     
     private let movie: PassthroughSubject<MovieDetails, Never>
@@ -33,7 +33,7 @@ class MovieDetailsViewModel {
     init(
         coordinator: AppCoordinating,
         getMovieDetailsUseCase: GetMovieDetailsUseCase,
-        id: String
+        id: Int
     ) {
         self.id = id
         self.coordinator = coordinator
@@ -47,7 +47,7 @@ class MovieDetailsViewModel {
     func fetchMovieDetails() {
         self.isLoading.send(true)
         
-        self.cancellable = self.getMovieDetailsUseCase.execute(with: self.id)
+        self.cancellable = self.getMovieDetailsUseCase.execute(with: "\(self.id)")
             .sink(receiveCompletion: { completion in
                 switch completion {
                     case .finished: break
@@ -56,7 +56,7 @@ class MovieDetailsViewModel {
                         self.error.send("An error occured while fetching the data.")
                 }
             }) { response in
-                self.movie.send(response.result)
+                self.movie.send(response)
                 self.isLoading.send(false)
             }
 
