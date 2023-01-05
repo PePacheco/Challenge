@@ -52,7 +52,7 @@ class MoviesListViewModel {
                     case .finished: break
                     case .failure(_):
                         self.isLoading.send(false)
-                        self.error.send("Ocorreu um erro ao buscar seus dados.")
+                        self.error.send("An error occured while fetching the data.")
                 }
             }) { results in
                 self.movies.send(results)

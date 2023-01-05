@@ -53,7 +53,7 @@ class MovieDetailsViewModel {
                     case .finished: break
                     case .failure(_):
                         self.isLoading.send(false)
-                        self.error.send("Ocorreu um erro ao buscar seus dados.")
+                        self.error.send("An error occured while fetching the data.")
                 }
             }) { response in
                 self.movie.send(response.result)

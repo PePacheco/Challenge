@@ -14,7 +14,7 @@ class MoviesRepository {
     
     init() {
         let headers = [
-            "X-RapidAPI-Key": "31e9e13f4fmsh551f24ec76a71a9p11502ajsn31497639b601"
+            "X-RapidAPI-Key": "25e6f66d5amsh2d7177d1f169e8ep15a9d5jsn4cfb9189ad7e"
         ]
         self.client = HTTPClient(withHeaders: headers)
     }
