@@ -1,6 +1,6 @@
 # Challenge
 ## Important notes
-I had to switch the API in order for the app to work, because this app is 6 months old and the other API was deprecated, so some things may seem strange, such as the rating being hardcodede to 3(it was a value received from the API) and the date is not formatted(i was received already formatted), but I couldn't update all those things because I had little time in my friends MacBook to update to TMDB API and switch the language from Portuguese to English. All because I am not able to access any repository that is not from my company with their MacBook.
+I had to switch the API in order for the app to work, because this app is 6 months old and the other API was deprecated, so some things may seem strange, such as the rating being hardcoded to 3(it was a value received from the API) and the date is not formatted(i was received already formatted), but I couldn't update all those things because I had little time in my friends MacBook to update to TMDB API and switch the language from Portuguese to English. All because I am not able to access any repository that is not from my company with their MacBook.
 
 # This Challenge vs Iphone Photography School Challenge
 1. Regarding Caching, I also have already created in another project a Cache class that wrapped the NSCache.
